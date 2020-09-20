@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB",
+mongoose.connect("mongodb+srv://admin-priyanshi:Test123@cluster0.jzd2e.mongodb.net/todolistDB",
   {useNewUrlParser:true,useUnifiedTopology:true});
 
  mongoose.set('useFindAndModify', false);
@@ -93,9 +93,9 @@ app.post("/delete", function(req,res){
      Item.findByIdAndRemove({_id: id},function(err){
     if(!err){
       console.log("successfully deleted the task")
+      res.redirect("/");
     }
   })
-  res.redirect("/");
   }else{
     List.findOneAndUpdate({name: listHeading},{$pull:{items:{_id: id}}},function(err,foundList){
       if(!err){
